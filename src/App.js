@@ -8,12 +8,12 @@ import Hero from './Pages/Hero';
 import { useEffect, useState } from 'react';
 import FilterNavbar from './Components/FilterNavbar/FilterNavbar';
 
+
 function App() {
   // const [log,setLog] = useState(false);
   // const isLonggedIn = useSelector((state)=> state.isLoggedIn);
   // setLog(isLonggedIn)
 
- 
   return (
     <div className='bg-[#F6F6F6]'>
       <header>

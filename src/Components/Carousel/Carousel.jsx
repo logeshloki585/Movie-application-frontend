@@ -4,6 +4,7 @@ import './carousel.css';
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import axios from 'axios';
+import { END_POINT } from "../../Assests/Container";
 
 const SimpleSlider = () => {
     const [movies, setMovies] = useState([]);
@@ -11,7 +12,9 @@ const SimpleSlider = () => {
     useEffect(() => {
         const fetchVerticalBanners = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/movie/getverticalbanner');
+                const specificEndpoint = '/movie/getverticalbanner';
+                const fullUrl = `${END_POINT}${specificEndpoint}`;
+                const response = await axios.get(fullUrl);
                 setMovies(response.data.movies);
                 console.log(response.data)
             } catch (error) {

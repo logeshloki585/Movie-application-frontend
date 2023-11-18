@@ -4,6 +4,7 @@ import Logo from '../../Assests/red.png';
 import {Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { authActions } from '../../Store';
+import { END_POINT } from '../../Assests/Container';
 
 
 
@@ -22,7 +23,9 @@ function LoginComponent() {
   };
 
   const sendRequest = async () => {
-    const response = await axios.post('http://localhost:5000/user/login', formData).catch((err) => console.log(err));
+    const specificEndpoint = '/user/login';
+    const fullUrl = `${END_POINT}${specificEndpoint}`;
+    const response = await axios.post(fullUrl, formData).catch((err) => console.log(err));
     const data = await response.data;
     return data;
   };

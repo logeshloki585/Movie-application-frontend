@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { END_POINT } from '../../Assests/Container';
 
 function AllMovies() {
     const [movies, setMovies] = useState([]);
@@ -23,7 +24,10 @@ function AllMovies() {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/movie/getMovie');
+                const specificEndpoint = '/movie/getMovie';
+                const fullUrl = `${END_POINT}${specificEndpoint}`;
+               
+                const response = await axios.get(fullUrl);
                 setMovies(response.data.movies);
 
                 const directors = [...new Set(response.data.movies.map(movie => movie.director))];

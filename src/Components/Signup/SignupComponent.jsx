@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import Logo from '../../Assests/red.png';
 import {  useNavigate } from 'react-router-dom';
+import { END_POINT } from '../../Assests/Container';
 
 function SignupComponent() {
   const history = useNavigate();
@@ -21,7 +22,9 @@ function SignupComponent() {
 
     try {
       console.log(formData)
-      const response = await axios.post('http://localhost:5000/user/signup',formData);
+      const specificEndpoint = '/user/signup';
+      const fullUrl = `${END_POINT}${specificEndpoint}`;
+      const response = await axios.post(fullUrl,formData);
 
       if(response.status === 201){
         if(response.data.message==="user already exists! Login instead"){
