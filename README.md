@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# MovieFlix
+## Project Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MovieFlix is a full-stack CRUD (Create, Read, Update, Delete) application built using React and Node.js that enables users to manage a collection of movies. It features a user-friendly interface, search functionality, secure authentication, and a comprehensive backend server.
 
-## Available Scripts
+## Key Features
 
-In the project directory, you can run:
+->Comprehensive Movie Management: Users can effortlessly manage their    movie collection by adding, updating, and deleting movies.
+
+->Advanced Search Functionality: Utilize advanced search filters to find movies based on actor name, director name, release year, and language.
+
+->Secure User Authentication: Restrict unauthorized access to sensitive actions using a secure user authentication system.
+
+->Robust Backend Server: A well-structured backend server handles data storage, user management, and API requests.
+
+# Getting Started
+## Prerequisites
+To run MovieFlix, ensure you have the following installed:
+
+->Node.js (Version 16 or higher)
+
+->npm (Node Package Manager)
+
+# Installation and Setup
+## FRONT END
+
+1. Clone the MovieFlix repository from GitHub:
+
+### `git clone https://github.com/logeshloki585/Movie-application-frontend`
+
+2. Modify the endpoint URL in the client-side code to point to the local backend server:
+
+## "open client/src/assests/Container.jsx"
+
+### `Replace ENT_POINT with http://localhost:5000`
+
+3. Navigate to the Movie-application-frontend and start the project by:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## BACK END
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the MovieFlix repository from GitHub:
 
-### `npm test`
+### `https://github.com/logeshloki585/Movie-application-backend`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Add .env file and add: (example)
 
-### `npm run build`
+### `JWT_SECRET_KEY= abcd`
+### `MONGOOSE_URI = mongodb+srv://admin:password@.nr5hcl9.mongodb.net/?retryWrites=true&w=majority`
+### `PORT = 5000` 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3.  Navigate to the Movie-application-BACKEND and start the project by:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `npm start`
 
-### `npm run eject`
+## YOU CAN ABLE TO UNDERSTAND THE WHOLE WORKING OF THIS APPLICATION WITH THIS FLOWCHAT
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![FLOW CHART](./src/Assests/flowchart.jpg)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Authentication
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+MovieFlix employs a secure authentication system to protect user data and restrict unauthorized access. Users must register and log in to perform actions like adding, updating, or deleting movies.
 
-## Learn More
+## Security
+-> MovieFlix implements various security measures to safeguard user data and prevent malicious attacks, including:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-> Data Encryption: User passwords and other sensitive information are stored in encrypted form.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-> Input Validation: User inputs are thoroughly validated to prevent code injection or malicious data entry.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-> Session Management: User sessions are securely managed to ensure that only authorized users can access their accounts.
