@@ -8,6 +8,10 @@ import Hero from './Pages/Hero';
 import { useEffect, useState } from 'react';
 import FilterNavbar from './Components/FilterNavbar/FilterNavbar';
 
+import AddMoviePage from './Pages/AddMoviePage';
+import UpdateMoviePage from './Pages/UpdateMoviePage';
+import DeleteMoviePage from './Pages/DeleteMoviePage';
+
 
 function App() {
   // const [log,setLog] = useState(false);
@@ -25,12 +29,10 @@ function App() {
         <Routes>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          
-          {/* {(log)?
-          <Route path='/main' element={<Hero/>}/>
-          : */}
-          <Route path='/main' element={<Hero/>}/>
-          {/* // } */}
+          <Route path='/' element={<Hero/>}/>
+          <Route path='/addmovie' element={<AddMoviePage/>}/>
+          <Route path='/updatemovie' element={<UpdateMoviePage/>}/>
+          <Route path='/deletemovie' element={<DeleteMoviePage/>}/>
         </Routes>
       </main>
     </div>

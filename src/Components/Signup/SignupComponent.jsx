@@ -21,7 +21,6 @@ function SignupComponent() {
     event.preventDefault();
 
     try {
-      console.log(formData)
       const specificEndpoint = '/user/signup';
       const fullUrl = `${END_POINT}${specificEndpoint}`;
       const response = await axios.post(fullUrl,formData);

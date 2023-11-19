@@ -39,7 +39,7 @@ function LoginComponent() {
       if(data.message==="Successfully Logged In"){
         console.log(data.message)
       dispatch(authActions.login())
-      history("/main")
+      history("/")
       }else{
         alert(data.message);
       }

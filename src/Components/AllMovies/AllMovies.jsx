@@ -186,7 +186,7 @@ function AllMovies() {
                             <summary
                             className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition"
                             >
-                            <span className="text-sm font-medium"> Year </span>
+                            <span className="text-sm font-medium"> YEAR </span>
 
                             <span className="transition group-open:-rotate-180">
                                 <svg
@@ -291,7 +291,7 @@ function AllMovies() {
                                 <div className='h-[320px] w-[210px] m-4 mb-8 relative'>
                                 <img className='h-full' src={e.posterURL} alt={e.title} />
                                 <div className="absolute  bottom-0 w-full bg-black bg-opacity-70 text-white px-1 py-0.5">
-                                     Rating ⭐ 4.5/5
+                                     Rating ⭐ {e.rating}
                                 </div>
                                 <div className='text-[14px] uppercase'>{e.title}</div>
                                 <div className='text-[14px] '>{e.language}</div>

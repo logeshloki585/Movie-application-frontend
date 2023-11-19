@@ -55,7 +55,7 @@ const Navbar = () => {
   return (
     <header class="lg:px-16 sticky top-0 px-4 bg-white flex flex-wrap items-center py-4 shadow-md">
     <div class="flex-1 flex justify-between items-center">
-        <a  class="text-xl">
+        <a onClick={()=>history('/') }  class="text-xl cursor-pointer">
             <img src={Logo} alt="logo" className='h-12'/>
         </a>
     </div>
@@ -74,14 +74,14 @@ const Navbar = () => {
             <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                 {(log)?<>
                     <img src={Avatar} alt="logo" className='h-11 rounded-[50px] mr-4'/>
-                <li><a  onClick={logout}  class="md:py-2 md:px-4 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Logout</a></li>
+                <li><a  onClick={logout}  class="cursor-pointer md:py-2 md:px-4 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Logout</a></li>
                 </>
                 :
                 <>
                 <li>
-                    <a onClick={signup} class="mr-4 md:py-2 md:px-4 rounded-[50px]  px-0 block border " >Sign in</a>
+                    <a onClick={signup} class="mr-4 cursor-pointer md:py-2 md:px-4 rounded-[50px]  px-0 block border " >Sign in</a>
                 </li>
-                <li><a  onClick={login}  class="md:py-2 md:px-4 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Log in</a></li>
+                <li><a  onClick={login}  class=" cursor-pointer md:py-2 md:px-4 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Log in</a></li>
                 </>
                 }
                 
@@ -97,13 +97,13 @@ const Navbar = () => {
                     <li className=' flex items-center  pb-4 mb-4 border-b border-gray-300'>
                         <div className='flex items-center '>
                         <img src={Avatar} alt="logo" className='h-12 rounded-[50px]'/> 
-                        <p className='ml-4 text-lg font-poppins font-medium text-black'>Name</p>
+                        <p className='ml-4 cursor-pointer text-lg font-poppins font-medium text-black'>Name</p>
                         </div>
                         
                     </li>
                     <li className=' flex items-center  pb-4 mb-4 border-b border-gray-300'>
                     <div>
-                        <a  onClick={logout} class="mr-4 py-3 px-6 rounded-[50px]  px-0 block border bg-[#e00f0f]" >Logout</a>
+                        <a  onClick={logout} class="mr-4 cursor-pointer py-3 px-6 rounded-[50px]  px-0 block border bg-[#e00f0f]" >Logout</a>
                     </div>
                     </li>
                     
@@ -111,8 +111,8 @@ const Navbar = () => {
                 :
                 <>
                 <li className='flex '>
-                    <a  onClick={signup} class="mr-4 py-3 px-6 rounded-[50px]  px-0 block border " >Sign in</a>
-                    <button onClick={login} class="py-3 px-6 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Log in</button>
+                    <a  onClick={signup} class="mr-4 cursor-pointer py-3 px-6 rounded-[50px]  px-0 block border " >Sign in</a>
+                    <button onClick={login} class="py-3 cursor-pointer px-6 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Log in</button>
                 </li>
                 </>
                 }
