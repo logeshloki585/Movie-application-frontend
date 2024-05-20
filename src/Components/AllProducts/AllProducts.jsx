@@ -1,102 +1,104 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { END_POINT } from '../../Assests/Container';
+import {useNavigate } from 'react-router-dom';
 
-function AllMovies() {
-    const [movies, setMovies] = useState([]);
-    const [filteredMovies, setFilteredMovies] = useState([]);
-    const [uniqueDirectors, setUniqueDirectors] = useState([]);
-    const [uniqueActors, setUniqueActors] = useState([]);
-    const [uniqueReleaseYear, setUniqueReleaseYear] = useState([]);
-    const [uniqueLanguages, setUniqueLanguages] = useState([]);
+
+function AllProducts() {
+    const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    const [uniqueBedroom, setUniqueBedroom] = useState([]);
+    const [uniqueBachelors, setUniqueBachelors] = useState([]);
+    const [uniqueFacing, setUniqueFacing] = useState([]);
+    const [uniqueBathroom, setUniqueBathroom] = useState([]);
+
     const [filterOption, setFilteredOption] = useState({ actor: '', director: '', year: null, language: '' });
     const [isFilter, setIsFilter] = useState(false);
+    const history = useNavigate();
 
     const handleSelectChange = (event) => {
         let { name, value } = event.target;
-        if (name ==='year'){
+        if (name ==='bedroom' ||name ==='bathroom'){
             value = parseInt(value)
         }
         setFilteredOption({ ...filterOption, [name]:  value});
-        console.log(filterOption)
     };
 
     useEffect(() => {
-        const fetchMovies = async () => {
+        const fetchProducts = async () => {
             try {
-                const specificEndpoint = '/movie/getMovie';
-                const fullUrl = `${END_POINT}${specificEndpoint}`;
-               
-                const response = await axios.get(fullUrl);
-                setMovies(response.data.movies);
+                const specificEndpoint = '/product/getAllProductExclude/';
+                const id = localStorage.getItem('id');
+                const fullUrl = `${END_POINT}${specificEndpoint}${id}`;
+                const response = await axios.get(fullUrl); 
+                setProducts(response.data.products);
 
-                const directors = [...new Set(response.data.movies.map(movie => movie.director))];
-                const actors = response.data.movies.reduce((acc, movie) => {
-                    movie.actors.forEach(actor => acc.add(actor.name));
-                    return acc;
-                }, new Set());
-                const releaseYear = [...new Set(response.data.movies.map(movie => movie.releaseYear))];
-                const languages = [...new Set(response.data.movies.map(movie => movie.language))];
+                const bedroom = [...new Set(response.data.products.map(product => product.bedroom))];
+                const bachelors = [...new Set(response.data.products.map(product => product.bachelors))];
+                const facing = [...new Set(response.data.products.map(product => product.facing))];
+                const bathroom = [...new Set(response.data.products.map(product => product.bathroom))];
 
-                setUniqueDirectors(directors);
-                setUniqueActors(Array.from(actors));
-                setUniqueReleaseYear(releaseYear);
-                setUniqueLanguages(languages);
+                setUniqueBedroom(bedroom);
+                setUniqueBachelors(bachelors);
+                setUniqueFacing(facing);
+                setUniqueBathroom(bathroom);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
-        fetchMovies();
+        fetchProducts();
     }, []);
 
-    const filterMovies = (selection) => {
-        if (!selection.director && !selection.actor && !selection.year && !selection.language) {
-            setFilteredMovies(movies);
+    const filterProducts = (selection) => {
+        if (!selection.bedroom && !selection.bachelors && !selection.facing && !selection.bathroom) {
+            setFilteredProducts(products);
             setIsFilter(false);
             return;
         }
+        console.log(selection)
+        let filtered = products;
 
-        let filtered = movies;
-
-        if (selection.director) {
-            filtered = filtered.filter(movie => movie.director === selection.director);
+        if (selection.bedroom) {
+            filtered = filtered.filter(product => selection.bedroom === product.bedroom);
         }
-
-        if (selection.actor) {
-            filtered = filtered.filter(movie => movie.actors.some(actor => actor.name === selection.actor));
+        if (selection.bachelors) {
+            filtered = filtered.filter(product => selection.bachelors === product.bachelors);
         }
-
-        if (selection.year) {
-            filtered = filtered.filter(movie => movie.releaseYear === selection.year);
+        if (selection.facing) {
+            filtered = filtered.filter(product => selection.facing === product.facing);
         }
-
-        if (selection.language) {
-            filtered = filtered.filter(movie => movie.language === selection.language);
+        if (selection.bathroom) {
+            filtered = filtered.filter(product => selection.bathroom === product.bathroom);
         }
-        console.log(filtered)
-        setFilteredMovies(filtered);
+       console.log(filtered)
+        setFilteredProducts(filtered);
         setIsFilter(true);
     };
 
     useEffect(() => {
-        filterMovies(filterOption);
+        filterProducts(filterOption);
     }, [filterOption]);
 
+    const openProduct = (id)  => {
+       
+        history(`/product/${id}`);
+    }
 
     return (
         <div className=' h-auto lg:px-16 md:flex'>
             <div className='min-w-[400px] px-4'>
                 <div className="space-y-2 ">
                         <h1 className='text-[28px] text-[#e63e3e]'>FILTER</h1>
-                        
+                {/* bedroom */}
                         <details
                             className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden"
                         >
                             <summary
                             className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition"
                             >
-                            <span className="text-sm font-medium"> ACTOR </span>
+                            <span className="text-sm font-medium"> BEDROOM </span>
 
                             <span className="transition group-open:-rotate-180">
                                 <svg
@@ -118,15 +120,15 @@ function AllMovies() {
 
                             <div className="border-t border-gray-200 bg-white">
                             <header className="flex items-center justify-between p-4">
-                                <span className="text-sm text-gray-700"> Filter movie based on Actor</span>
+                                <span className="text-sm text-gray-700"> Filter product based on bedroom</span>
                             </header>
 
                             <ul className="space-y-1 border-t border-gray-200 p-4">
-                            <select name='actor'  className='w-full border border-gray-300 p-2 rounded-[10px] '
-                            value={filterOption.actor} onChange={handleSelectChange}
+                            <select name='bedroom'  className='w-full border border-gray-300 p-2 rounded-[10px] '
+                            value={filterOption.bedroom} onChange={handleSelectChange}
                             >   
-                                <option  value=''>All Actors</option>
-                                {uniqueActors.map((e)=>(
+                                <option  value=''>All Availables</option>
+                                {uniqueBedroom.map((e)=>(
                                 <option   value={e}>{e}</option>
                                 ))}
                                 
@@ -134,14 +136,14 @@ function AllMovies() {
                             </ul>
                             </div>
                         </details>
-
+{/* bachelors */}
                         <details
                             className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden"
                         >
                             <summary
                             className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition"
                             >
-                            <span className="text-sm font-medium"> DIRECTOR </span>
+                            <span className="text-sm font-medium"> BACHELORS </span>
 
                             <span className="transition group-open:-rotate-180">
                                 <svg
@@ -163,15 +165,15 @@ function AllMovies() {
 
                             <div className="border-t border-gray-200 bg-white">
                             <header className="flex items-center justify-between p-4">
-                                <span className="text-sm text-gray-700"> Filter movie based on Director</span>
+                                <span className="text-sm text-gray-700"> Filter product based on bachelors permission</span>
                             </header>
 
                             <ul className="space-y-1 border-t border-gray-200 p-4">
-                            <select name='director' className='w-full border border-gray-300 p-2 rounded-[10px] '
-                            value={filterOption.director} onChange={handleSelectChange}
+                            <select name='bachelors' className='w-full border border-gray-300 p-2 rounded-[10px] '
+                            value={filterOption.bachelors} onChange={handleSelectChange}
                             >   
-                                <option  value=''>All Director</option>
-                                {uniqueDirectors.map((e)=>(
+                                <option  value=''>Permission</option>
+                                {uniqueBachelors.map((e)=>(
                                 <option   value={e}>{e}</option>
                                 ))}
                                 
@@ -179,14 +181,14 @@ function AllMovies() {
                             </ul>
                             </div>
                         </details>
-
+         {/* facing */}
                         <details
                             className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden"
                         >
                             <summary
                             className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition"
                             >
-                            <span className="text-sm font-medium"> YEAR </span>
+                            <span className="text-sm font-medium"> FACING </span>
 
                             <span className="transition group-open:-rotate-180">
                                 <svg
@@ -208,29 +210,29 @@ function AllMovies() {
 
                             <div className="border-t border-gray-200 bg-white">
                             <header className="flex items-center justify-between p-4">
-                                <span className="text-sm text-gray-700"> Filter movies based on Release Year</span>
+                                <span className="text-sm text-gray-700"> Filter product based on house facing</span>
                             </header>
 
                             <ul className="space-y-1 border-t border-gray-200 p-4">
-                            <select name='year' className='w-full border border-gray-300 p-2 rounded-[10px] '
-                            value={filterOption.year} onChange={handleSelectChange}
+                            <select name='facing' className='w-full border border-gray-300 p-2 rounded-[10px] '
+                            value={filterOption.facing} onChange={handleSelectChange}
                             >   
-                                <option  value={null}>All Years</option>
-                                {uniqueReleaseYear.map((e)=>(
+                                <option  value={null}>All AVAILABLES</option>
+                                {uniqueFacing.map((e)=>(
                                 <option   value={e}>{e}</option>
                                 ))}
                             </select>
                             </ul>
                             </div>
                         </details>
-
+{/* bathroom */}
                         <details
                             className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden"
                         >
                             <summary
                             className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition"
                             >
-                            <span className="text-sm font-medium"> LANGUAGE </span>
+                            <span className="text-sm font-medium"> BATHROOM </span>
 
                             <span className="transition group-open:-rotate-180">
                                 <svg
@@ -252,15 +254,15 @@ function AllMovies() {
 
                             <div className="border-t border-gray-200 bg-white">
                             <header className="flex items-center justify-between p-4">
-                                <span className="text-sm text-gray-700"> Filter movies based on language</span>
+                                <span className="text-sm text-gray-700"> Filter product based on bathroom</span>
                             </header>
 
                             <ul className="space-y-1 border-t border-gray-200 p-4">
-                            <select name='language' className='w-full border border-gray-300 p-2 rounded-[10px] '
-                            value={filterOption.language} onChange={handleSelectChange}
+                            <select name='bathroom' className='w-full border border-gray-300 p-2 rounded-[10px] '
+                            value={filterOption.bathroom} onChange={handleSelectChange}
                             >   
-                                <option  value=''>All Language</option>
-                                {uniqueLanguages.map((e)=>(
+                                <option  value=''>All AVAILABLES</option>
+                                {uniqueBathroom.map((e)=>(
                                 <option   value={e}>{e}</option>
                                 ))}
                             </select>
@@ -270,35 +272,39 @@ function AllMovies() {
                 </div>
             </div>
             <div>
-                    <h1 className='text-[28px] ml-4 text-[#e63e3e]'>MOVIES</h1>
+                    <h1 className='text-[28px] ml-4 text-[#e63e3e]'>RENTALS</h1>
                     <div className='flex flex-wrap'>
                     {isFilter ? (
-                        filteredMovies.map((e) => (
-                            <div className='h-[320px] w-[210px] m-4 mb-8 relative'>
-                                <img className='h-full' src={e.posterURL} alt={e.title} />
-                                <div className="absolute  bottom-0 w-full bg-black bg-opacity-70 text-white px-1 py-0.5">
-                                     Rating ⭐ 4.5/5
+                        filteredProducts.map((e) => (
+                            <div className='h-[320px] w-[260px] m-4 mb-8 relative'>
+                                <img className='h-full' src={e.posterURL} alt={e.type} />
+                                <div className="absolute bottom-0 w-full bg-black bg-opacity-70 text-white px-1 py-0.5">
+                                    {e.type} | {e.facing} | likes - {e.likes} 
                                 </div>
-                                <div className='text-[14px] uppercase'>{e.title}</div>
-                                <div className='text-[14px] '>{e.language}</div>
-                                <div className="absolute text-sm font-bold text-[#e00f0f] top-0 right-0 px-2 bg-white m-2 rounded-[50px] bg-opacity-70 text-white px-1 py-0.5">
-                                     {e.releaseYear}
+                                <div className='text-[14px] '>bachelors - {e.bachelors}</div>
+                                <div className="absolute text-sm font-bold bg-[#e00f0f] top-0 right-0 px-2  m-2 rounded-[50px] bg-opacity-70 text-white px-1 py-0.5">
+                                     {e.bedroom} BHK
+                                </div>
+                                <div className="absolute text-sm font-bold  top-0 left-0   h-8 w-12 m-1 rounded-[50px] bg-opacity-70 text-white px-1 py-0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 98" id="like"><g><path d="M66.1,16.3A22.2,22.2,0,0,0,49,24.2a21.9,21.9,0,0,0-17.1-7.9A22.4,22.4,0,0,0,9.5,38.7c0,21.2,37,41.9,38.5,42.7a1.8,1.8,0,0,0,2,0c1.5-.8,38.5-21.2,38.5-42.7A22.4,22.4,0,0,0,66.1,16.3ZM49,77.4C43.2,74,13.5,55.9,13.5,38.7A18.4,18.4,0,0,1,31.9,20.3a18,18,0,0,1,15.4,8.3,2.1,2.1,0,0,0,3.4,0A18.4,18.4,0,0,1,84.5,38.7C84.5,56.1,54.8,74.1,49,77.4Z"></path></g></svg>
                                 </div>
                             </div>
                            ))
                            ) :(
-                            movies.map((e) => (
-                                <div className='h-[320px] w-[210px] m-4 mb-8 relative'>
-                                <img className='h-full' src={e.posterURL} alt={e.title} />
-                                <div className="absolute  bottom-0 w-full bg-black bg-opacity-70 text-white px-1 py-0.5">
-                                     Rating ⭐ {e.rating}
+                            products.map((e) => (
+                                <div className='h-[320px] w-[260px] m-4 mb-8 relative cursor-pointer' onClick={()=>openProduct(e._id)}>
+                                <img className='h-full' src={e.posterURL} alt={e.type} />
+                                <div className="absolute bottom-0 w-full bg-black bg-opacity-70 text-white px-1 py-0.5">
+                                    {e.type} | {e.facing} | likes - {e.likes} 
                                 </div>
-                                <div className='text-[14px] uppercase'>{e.title}</div>
-                                <div className='text-[14px] '>{e.language}</div>
-                                <div className="absolute text-sm font-bold text-[#e00f0f] top-0 right-0 px-2 bg-white m-2 rounded-[50px] bg-opacity-70 text-white px-1 py-0.5">
-                                     {e.releaseYear}
+                                <div className='text-[14px] '>bachelors - {e.bachelors}</div>
+                                <div className="absolute text-sm font-bold bg-[#e00f0f] top-0 right-0 px-2  m-2 rounded-[50px] bg-opacity-70 text-white px-1 py-0.5">
+                                     {e.bedroom} BHK
                                 </div>
-                            </div> ))
+                                <div className="absolute text-sm font-bold  top-0 left-0   h-8 w-12 m-1 rounded-[50px] bg-opacity-70 text-white px-1 py-0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 98" id="like"><g><path d="M66.1,16.3A22.2,22.2,0,0,0,49,24.2a21.9,21.9,0,0,0-17.1-7.9A22.4,22.4,0,0,0,9.5,38.7c0,21.2,37,41.9,38.5,42.7a1.8,1.8,0,0,0,2,0c1.5-.8,38.5-21.2,38.5-42.7A22.4,22.4,0,0,0,66.1,16.3ZM49,77.4C43.2,74,13.5,55.9,13.5,38.7A18.4,18.4,0,0,1,31.9,20.3a18,18,0,0,1,15.4,8.3,2.1,2.1,0,0,0,3.4,0A18.4,18.4,0,0,1,84.5,38.7C84.5,56.1,54.8,74.1,49,77.4Z"></path></g></svg>
+                                </div>
+                            </div>))
                     )
                     }
                     
@@ -309,4 +315,4 @@ function AllMovies() {
     );
 }
 
-export default AllMovies;
+export default AllProducts;

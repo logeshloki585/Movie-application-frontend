@@ -8,9 +8,10 @@ import Hero from './Pages/Hero';
 import { useEffect, useState } from 'react';
 import FilterNavbar from './Components/FilterNavbar/FilterNavbar';
 
-import AddMoviePage from './Pages/AddMoviePage';
-import UpdateMoviePage from './Pages/UpdateMoviePage';
-import DeleteMoviePage from './Pages/DeleteMoviePage';
+import AddProductPage from './Pages/AddProductPage';
+import UpdateProductPage from './Pages/UpdateProductPage';
+import DeleteProductPage from './Pages/DeleteProductPage';
+import ProductPage from './Pages/ProductPage';
 
 
 function App() {
@@ -19,20 +20,21 @@ function App() {
   // setLog(isLonggedIn)
 
   return (
-    <div className='bg-[#F6F6F6]'>
-      <header>
+    <div className='bg-[#f4fac3]'>
+      <header className='z-10 sticky'>
         <Navbar/>
         <FilterNavbar/>
       </header>
-      <main>
+      <main className='bg-[#] pb-10 '>
       
         <Routes>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/' element={<Hero/>}/>
-          <Route path='/addmovie' element={<AddMoviePage/>}/>
-          <Route path='/updatemovie' element={<UpdateMoviePage/>}/>
-          <Route path='/deletemovie' element={<DeleteMoviePage/>}/>
+          <Route path='/addProduct' element={<AddProductPage/>}/>
+          <Route path='/updateproduct' element={<UpdateProductPage/>}/>
+          <Route path='/deleteproduct' element={<DeleteProductPage/>}/>
+          <Route path='/product/:id' element={<ProductPage/>}/>
         </Routes>
       </main>
     </div>

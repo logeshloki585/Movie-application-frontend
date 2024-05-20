@@ -7,23 +7,9 @@ import axios from 'axios';
 import { END_POINT } from "../../Assests/Container";
 
 const SimpleSlider = () => {
-    const [movies, setMovies] = useState([]);
-
-    useEffect(() => {
-        const fetchVerticalBanners = async () => {
-            try {
-                const specificEndpoint = '/movie/getverticalbanner';
-                const fullUrl = `${END_POINT}${specificEndpoint}`;
-                const response = await axios.get(fullUrl);
-                setMovies(response.data.movies);
-                console.log(response.data)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchVerticalBanners();
-    }, []);
+    const [products, setProducts] = useState(['https://www.shutterstock.com/image-vector/winter-sale-horizontal-advertising-banner-260nw-536057692.jpg',
+    'https://www.shutterstock.com/image-vector/winter-sale-horizontal-advertising-banner-260nw-536057692.jpg',
+    ]);
 
     const settings = {
       dots: true,
@@ -35,12 +21,12 @@ const SimpleSlider = () => {
       autoplaySpeed: 1000,
     };
     return (
-      <div className="md:px-7">
+      <div className= " md:px-7 ">
 
         <Slider {...settings}>
-        {movies.map((movie, index) => (
-            <div className="h-[240px]  md:h-[360px]  ">
-            <img className="h-full w-full px-4 md:px-24" src={movie.verticalBanner} alt={`Slide ${index + 1}`} />
+        {products.map((product, index) => (
+            <div className="h-[240px]  md:h-[270px] mt-6 ">
+            <img className="h-full w-full px-4 md:px-24" src={product} alt={`Slide ${index + 1}`} />
             </div>
         ))}
 

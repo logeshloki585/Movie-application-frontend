@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import Logo from '../../Assests/red.png';
+import Logo from '../../Assests/rentify.png';
 import {Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { authActions } from '../../Store';
@@ -38,6 +38,8 @@ function LoginComponent() {
       console.log(data)
       if(data.message==="Successfully Logged In"){
         console.log(data.message)
+      localStorage.setItem('id',data.user._id);
+      console.log(data.user._id)
       dispatch(authActions.login())
       history("/")
       }else{
@@ -58,11 +60,14 @@ function LoginComponent() {
     <div>
       <section className="">
         <div className=" mt-32 md:-mt-12 flex flex-col items-center justify-center px-6  mx-auto md:h-screen lg:py-0">
-            <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <img className="w-full h-8 mr-2" src={Logo} alt="logo"/>  
-            </a>
-            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            
+            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-[#131313] dark:border-gray-700">
+                <div className='px-12 pt-2'>
+                  <a href="#" className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+                      <img className="w-full h-34" src={Logo} alt="logo"/>  
+                  </a>
+                </div>
+                <div className="p-2 space-y-4 md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Sign in to your account
                     </h1>

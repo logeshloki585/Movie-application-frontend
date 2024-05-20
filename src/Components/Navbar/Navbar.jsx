@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import React from 'react';
-import Logo from '../../Assests/red.png';
+import Logo from '../../Assests/rentify.png';
 import Avatar from '../../Assests/avatar.png';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -20,25 +20,15 @@ const Navbar = () => {
       console.log(isLonggedIn)
     }, [isLonggedIn]);
 
-  
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     console.log(isMobileMenuOpen)
   };
 
-//   const sendLogoutReq = async () => {
-//     const res = await axios.post("http://localhost:5000/user/logout", null, {
-//       withCredentials: true,
-//     });
-//     if (res.status == 200) {
-//       return res;
-//     }
-//     return new Error("Unable TO Logout. Please try again");
-//   };
 
   const logout = () => {
     dispatch(authActions.logout());
+    localStorage.removeItem("id");
     history('/login');
     setLog(false)
 
@@ -53,10 +43,10 @@ const Navbar = () => {
   } 
 
   return (
-    <header class="lg:px-16 sticky top-0 px-4 bg-white flex flex-wrap items-center py-4 shadow-md">
+    <header class="bg-[#131313] lg:px-16 sticky top-0 px-4 bg-white flex flex-wrap items-center py-2 shadow-md">
     <div class="flex-1 flex justify-between items-center">
         <a onClick={()=>history('/') }  class="text-xl cursor-pointer">
-            <img src={Logo} alt="logo" className='h-12'/>
+            <img src={Logo} alt="logo" className='h-14'/>
         </a>
     </div>
 
@@ -74,14 +64,14 @@ const Navbar = () => {
             <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                 {(log)?<>
                     <img src={Avatar} alt="logo" className='h-11 rounded-[50px] mr-4'/>
-                <li><a  onClick={logout}  class="cursor-pointer md:py-2 md:px-4 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Logout</a></li>
+                <li><a  onClick={logout}  class="cursor-pointer md:py-2 md:px-4 rounded-[50px] bg-[#EEFF5F]  px-0 block text-[#373737] font-medium" >Logout</a></li>
                 </>
                 :
                 <>
                 <li>
-                    <a onClick={signup} class="mr-4 cursor-pointer md:py-2 md:px-4 rounded-[50px]  px-0 block border " >Sign in</a>
+                    <a onClick={signup} class="mr-4 cursor-pointer md:py-2 md:px-4 rounded-[50px]  px-0 block border bg-[white]" >Sign in</a>
                 </li>
-                <li><a  onClick={login}  class=" cursor-pointer md:py-2 md:px-4 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Log in</a></li>
+                <li><a  onClick={login}  class=" cursor-pointer md:py-2 md:px-4 rounded-[50px] bg-[#EEFF5F]  px-0 block text-[#373737] font-medium" >Log in</a></li>
                 </>
                 }
                 
@@ -99,14 +89,12 @@ const Navbar = () => {
                         <img src={Avatar} alt="logo" className='h-12 rounded-[50px]'/> 
                         <p className='ml-4 cursor-pointer text-lg font-poppins font-medium text-black'>Name</p>
                         </div>
-                        
                     </li>
                     <li className=' flex items-center  pb-4 mb-4 border-b border-gray-300'>
                     <div>
                         <a  onClick={logout} class="mr-4 cursor-pointer py-3 px-6 rounded-[50px]  px-0 block border bg-[#e00f0f]" >Logout</a>
                     </div>
                     </li>
-                    
                 </>
                 :
                 <>
@@ -115,12 +103,7 @@ const Navbar = () => {
                     <button onClick={login} class="py-3 cursor-pointer px-6 rounded-[50px] bg-[#e00f0f]  px-0 block text-white" >Log in</button>
                 </li>
                 </>
-                }
-                
-                
-                
-                
-                
+                }    
             </ul>
         </div>:
         <></>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react';
-import DeleteMovie from '../Components/DeleteMovie/DeleteMovie';
+import UpdateProduct from '../Components/UpdateProduct/UpdateProduct';
 
-function DeleteMoviePage() {
+function UpdateProductPage() {
   const dispatch = useDispatch();
   const [log, setLog] = useState(false);
   const isLonggedIn = useSelector((state) => state.isLoggedIn);
@@ -17,11 +17,11 @@ function DeleteMoviePage() {
     <div>
         {
             (!log)?
-            <>Please login you dont have authority to add movie</>:
-            <DeleteMovie/>
+            <>Please login you dont have authority to add product</>:
+            <UpdateProduct/>
         }
     </div>
   )
 }
 
-export default DeleteMoviePage;
+export default UpdateProductPage;

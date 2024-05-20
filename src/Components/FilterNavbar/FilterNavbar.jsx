@@ -7,15 +7,15 @@ function FilterNavbar() {
           
      // } 
   return (
-    <div className='lg:px-14 flex justify-center  items-center bg-[#71797E] text-white h-12 w-full'>
-       <div onClick={()=>history('/addmovie') } className=' block border-b font-medium md:px-4 py-0.5 cursor-pointer mx-2'>
-            Add movie
+    <div className=' lg:px-14  flex justify-center  items-center  bg-[white] text-white h-12 w-full'>
+       <div onClick={()=>history('/addProduct') } className=' block border-b text-black font-medium md:px-4 py-0.5 cursor-pointer mx-2'>
+            ADD HOUSE
        </div>
-       <div onClick={()=>history('/updatemovie') } className=' block border-b font-medium px-4 py-0.5  cursor-pointer mx-2'>
-            Update Movie Details
+       <div onClick={()=>history('/updateproduct') } className=' block border-b text-black font-medium px-4 py-0.5  cursor-pointer mx-2'>
+            UPTADE HOUSE DETAILS
        </div>
-       <div onClick={()=>history('/deletemovie') } className=' block border-b font-medium px-4 py-0.5  cursor-pointer mx-2'>
-            Delete Movie
+       <div onClick={()=>history('/deleteproduct') } className=' block border-b text-black font-medium px-4 py-0.5  cursor-pointer mx-2'>
+            DETELE HOUSE
        </div>
     </div>
   )
